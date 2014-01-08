@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_db816f00",
+        "filename": "power.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000170
+      },
+      "writtenOn": "2014-01-08T06:03:06Z",
+      "side": 1,
+      "message": "I\u0027m okay with removing the error, but for others who may not be aware of it it\u0027s probably better to preserve the default behavior. Using #ifndef instead would allow it to be silenced per device.",
+      "revId": "c20b338a6ba70bd15437e01de9596323d4a95b68",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
