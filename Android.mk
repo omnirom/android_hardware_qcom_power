@@ -1,4 +1,5 @@
 ifneq ($(filter msm8960 msm8974,$(TARGET_BOARD_PLATFORM)),)
+ifneq ($(TARGET_PROVIDES_POWERHAL),true)
 LOCAL_PATH := $(call my-dir)
 
 # HAL module implemenation stored in
@@ -19,4 +20,5 @@ LOCAL_CFLAGS += -DBOOST_SOCKET=\"$(TARGET_MPDECISION_BOOST_SOCKET)\"
 endif
 
 include $(BUILD_SHARED_LIBRARY)
+endif
 endif
