@@ -203,6 +203,43 @@ static void power_hint(struct power_module *module, power_hint_t hint,
     }
 }
 
+int sysfs_write(char *path, char *s)
+{
+    char buf[80];
+    int len;
+    int ret = 0;
+    int fd = open(path, O_WRONLY);
+
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+        return -1 ;
+    }
+
+    len = write(fd, s, strlen(s));
+    if (len < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error writing to %s: %s\n", path, buf);
+
+        ret = -1;
+    }
+
+    close(fd);
+
+    return ret;
+}
+
+void set_feature(struct power_module *module, feature_t feature, int state)
+{
+#ifdef TAP_TO_WAKE_NODE
+    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
+            ALOGI("Double tap to wake is %s.", state ? "enabled" : "disabled");
+            sysfs_write(TAP_TO_WAKE_NODE, state ? "1" : "0");
+        return;
+    }
+#endif
+}
+
 static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
@@ -221,4 +258,5 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .init = power_init,
     .setInteractive = power_set_interactive,
     .powerHint = power_hint,
+    .setFeature = set_feature
 };
