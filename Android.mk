@@ -16,6 +16,7 @@ ifneq ($(TARGET_BOARD_AUTO),true)
 
     LOCAL_MODULE:= power.$(TARGET_BOARD_PLATFORM)
     LOCAL_MODULE_TAGS := optional
+    LOCAL_CFLAGS += -Wno-unused-parameter
     include $(BUILD_SHARED_LIBRARY)
   endif
 endif
